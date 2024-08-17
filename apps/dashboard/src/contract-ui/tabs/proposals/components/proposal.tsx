@@ -11,7 +11,7 @@ import { TransactionButton } from "components/buttons/TransactionButton";
 import { useTxNotifications } from "hooks/useTxNotifications";
 import { useCallback } from "react";
 import { FiCheck, FiMinus, FiX } from "react-icons/fi";
-import { toTokens, type ThirdwebContract } from "thirdweb";
+import { type ThirdwebContract, toTokens } from "thirdweb";
 import {
   type ProposalItem,
   ProposalState,
