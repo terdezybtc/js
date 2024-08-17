@@ -32,16 +32,7 @@ export const ContractProposalsPage: React.FC<ProposalsPageProps> = ({
     return [address, contract.address].filter((a) => !!a) as string[];
   }, [address, contract.address]);
 
-  const proposals = useMemo(() => {
-    if (!data.data || data.data.length < 1) {
-      return [];
-    }
-
-    const allProposals = data.data;
-    return allProposals.map(
-      (p, index) => allProposals[allProposals.length - 1 - index],
-    );
-  }, [data]);
+  const proposals = useMemo(() => (data.data || []).reverse(), [data]);
 
   const { data: balances } = useVoteTokenBalances(contract, balanceAddresses);
 
