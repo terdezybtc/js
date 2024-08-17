@@ -4,13 +4,14 @@ import {
   useExecuteProposalMutation,
   useHasVotedOnProposal,
   useTokensDelegated,
+  useVotingTokenDecimals,
 } from "@3rdweb-sdk/react/hooks/useVote";
 import { Flex, Icon } from "@chakra-ui/react";
 import { TransactionButton } from "components/buttons/TransactionButton";
 import { useTxNotifications } from "hooks/useTxNotifications";
 import { useCallback } from "react";
 import { FiCheck, FiMinus, FiX } from "react-icons/fi";
-import type { ThirdwebContract } from "thirdweb";
+import { toTokens, type ThirdwebContract } from "thirdweb";
 import {
   type ProposalItem,
   ProposalState,
@@ -81,6 +82,8 @@ export const Proposal: React.FC<IProposal> = ({ proposal, contract }) => {
     });
   }, [execute, executeError, executeSuccess]);
 
+  const decimalQuery = useVotingTokenDecimals(contract);
+
   return (
     <Card key={proposal.proposalId.toString()}>
       <Flex mb="8px">
@@ -112,13 +115,22 @@ export const Proposal: React.FC<IProposal> = ({ proposal, contract }) => {
         proposal.votes.abstain > 0n) && (
         <>
           <Text mt="16px">
-            <strong>For:</strong> {proposal.votes.for.toString()}
+            <strong>For:</strong>{" "}
+            {decimalQuery.isLoading
+              ? "Loading..."
+              : toTokens(proposal.votes.for, decimalQuery.data || 18)}
           </Text>
           <Text>
-            <strong>Against:</strong> {proposal.votes.against.toString()}
+            <strong>Against:</strong>{" "}
+            {decimalQuery.isLoading
+              ? "Loading..."
+              : toTokens(proposal.votes.against, decimalQuery.data || 18)}
           </Text>
           <Text>
-            <strong>Abstained:</strong> {proposal.votes.abstain.toString()}
+            <strong>Abstained:</strong>{" "}
+            {decimalQuery.isLoading
+              ? "Loading..."
+              : toTokens(proposal.votes.abstain, decimalQuery.data || 18)}
           </Text>
         </>
       )}

@@ -182,7 +182,15 @@ export function useDelegateMutation(contract: ThirdwebContract) {
       if (!tokenAddress) {
         throw new Error("Expected a delegated token address");
       }
-      const transaction = delegate({ contract, delegatee: userAddress });
+      const tokenContract = getContract({
+        address: tokenAddress,
+        chain: contract.chain,
+        client: thirdwebClient,
+      });
+      const transaction = delegate({
+        contract: tokenContract,
+        delegatee: userAddress,
+      });
       return await mutateAsync(transaction);
     },
     {
@@ -191,6 +199,25 @@ export function useDelegateMutation(contract: ThirdwebContract) {
       },
     },
   );
+}
+
+/**
+ * Get the decimals of the voting erc20 token
+ */
+export function useVotingTokenDecimals(contract: ThirdwebContract) {
+  return useMutationWithInvalidate(async () => {
+    const tokenAddress = await token({ contract });
+    if (!tokenAddress) {
+      throw new Error("Expected a delegated token address");
+    }
+    const tokenContract = getContract({
+      address: tokenAddress,
+      chain: contract.chain,
+      client: thirdwebClient,
+    });
+    const _decimals = await decimals({ contract: tokenContract });
+    return _decimals;
+  });
 }
 
 interface IVoteCast {
