@@ -2,4 +2,4 @@
 "thirdweb": patch
 ---
 
-Expose max() utils method for bigints
+Expose max() & min() util methods for bigints

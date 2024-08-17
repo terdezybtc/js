@@ -14,7 +14,7 @@ const TotalListingsStat: React.FC<{ contract: ThirdwebContract }> = ({
   const englishAuctionsQuery = useReadContract(totalAuctions, {
     contract,
   });
-  const _totalListings = useMemo(
+  const combinedListingCount = useMemo(
     () => (directListingsQuery.data || 0n) + (englishAuctionsQuery.data || 0n),
     [directListingsQuery.data, englishAuctionsQuery.data],
   );
@@ -27,7 +27,7 @@ const TotalListingsStat: React.FC<{ contract: ThirdwebContract }> = ({
           directListingsQuery.isSuccess && englishAuctionsQuery.isSuccess
         }
       >
-        <StatNumber>{_totalListings.toString()}</StatNumber>
+        <StatNumber>{combinedListingCount.toString()}</StatNumber>
       </Skeleton>
     </Card>
   );
