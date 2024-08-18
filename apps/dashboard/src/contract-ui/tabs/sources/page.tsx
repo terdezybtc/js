@@ -191,10 +191,7 @@ export const ContractSourcesPage: React.FC<ContractSourcesPageProps> = ({
     setResetSignal((prev: number) => prev + 1);
   };
 
-  const contractSourcesQuery = useContractSources(contractAddress);
-
   const { contract } = useContract(contractAddress);
-
   const chain = useV5DashboardChain(contract?.chainId);
   const contractV5 =
     contract && chain
@@ -205,6 +202,7 @@ export const ContractSourcesPage: React.FC<ContractSourcesPageProps> = ({
         })
       : undefined;
   const abiQuery = useResolveContractAbi(contractV5);
+  const contractSourcesQuery = useContractSources(contractV5);
 
   // clean up the source filenames and filter out libraries
   const sources = useMemo(() => {
