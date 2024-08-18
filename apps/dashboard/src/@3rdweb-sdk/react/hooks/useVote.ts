@@ -44,7 +44,7 @@ export function useHasVotedOnProposal(
   const userAddress = useActiveAccount()?.address;
   return useQueryWithNetwork(
     voteKeys.userHasVotedOnProposal(
-      String(proposalId),
+      proposalId.toString(),
       contract.address,
       userAddress,
     ),
@@ -63,7 +63,7 @@ export function useCanExecuteProposal(
   proposalId: bigint,
 ) {
   return useQueryWithNetwork(
-    voteKeys.canExecuteProposal(String(proposalId), contract.address),
+    voteKeys.canExecuteProposal(proposalId.toString(), contract.address),
     async () => await canExecute({ contract, proposalId }),
     {
       enabled: !!contract,
@@ -250,11 +250,11 @@ export function useCastVoteMutation(
         return invalidate([
           voteKeys.proposals(contractAddress),
           voteKeys.userHasVotedOnProposal(
-            String(proposalId),
+            proposalId.toString(),
             contractAddress,
             address,
           ),
-          voteKeys.canExecuteProposal(String(proposalId), contractAddress),
+          voteKeys.canExecuteProposal(proposalId.toString(), contractAddress),
         ]);
       },
     },
