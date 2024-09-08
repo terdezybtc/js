@@ -38,3 +38,8 @@ export {
   type SplitContractParams,
   type DeploySplitContractOptions,
 } from "../extensions/prebuilts/deploy-split.js";
+export {
+  deployVoteContract,
+  type DeployVoteContractOptions,
+  type VoteContractParams,
+} from "../extensions/prebuilts/deploy-vote.js";
