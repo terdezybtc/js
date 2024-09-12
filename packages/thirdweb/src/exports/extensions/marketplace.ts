@@ -31,6 +31,16 @@ export {
   type CurrencyPriceForListingParams,
 } from "../../extensions/marketplace/direct-listings/read/currencyPriceForListing.js";
 
+// isDirectListingSupported
+export { isCreateListingSupported } from "../../extensions/marketplace/__generated__/IDirectListings/write/createListing.js";
+export { isCancelListingSupported } from "../../extensions/marketplace/__generated__/IDirectListings/write/cancelListing.js";
+export { isBuyFromListingSupported } from "../../extensions/marketplace/__generated__/IDirectListings/write/buyFromListing.js";
+
+// isEnglishAuctionSupported
+export { isCreateAuctionSupported } from "../../extensions/marketplace/__generated__/IEnglishAuctions/write/createAuction.js";
+export { isBidInAuctionSupported } from "../../extensions/marketplace/__generated__/IEnglishAuctions/write/bidInAuction.js";
+export { isCancelAuctionSupported } from "../../extensions/marketplace/__generated__/IEnglishAuctions/write/cancelAuction.js";
+
 // WRITE
 export {
   createListing,
